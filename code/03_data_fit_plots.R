@@ -1,43 +1,8 @@
-## prepare data for analyzing grand average N400s over all ROIs
 
-library(tidyverse)
-library(reshape2)
-library(gtp) # download with: devtools::install_github("michael-franke/game_theoretic_pragmatics_ORE", subdir="gtp")
+## this is a total hack now -> improve
 
-theme_set(theme_bw() + theme(plot.background=element_blank()) )
+predictions_SC = predictions
 
-source("01_fits.R")
-
-########################################################
-### set global parameters
-########################################################
-
-save.folder = "../pics/"
-
-######################################################
-## model fit
-######################################################
-
-
-d = read.csv('../data/data.csv')
-d = d %>% filter(win %in% c("+0300..+0400"))
-
-semantiker = c("s02", "s03", "s04", "s06", "s07", "s11", "s16", "s18", "s19", "s20", "s25", "s26")
-
-d = rename(d, context = cont2, quantifier = quan2, shape = form2) %>%
-  select(subj, cond, chan, win, mean, context, quantifier, shape, roi, position) %>%
-  mutate(roi = factor(roi)) %>%
-  mutate(position = factor(position, levels = c("quant", "adj", "form")),
-         context = toupper(context),
-         shape = toupper(shape),
-         cond = toupper(cond),
-         quantifier = toupper(quantifier)) %>%
-  mutate(shape2 = ifelse(shape == "X", "Q", "K"),
-         semPragType = ifelse(subj %in% semantiker, "S", "P"))
-
-# predictions = rbind(get_preds(lambda = 1, depth = 1),  # semantics
-#                     get_preds(lambda = 1, depth = 1)) %>% 
-#   mutate(semPragType = rep(c("S", "P"), each = 32)) %>% mutate(context = as.character(context))
 predictions$context = as.character(predictions$context)
 predictions[nchar(as.character(predictions$segment)) == 1,]$context = rep(c("A/D", "B/C", "B/C", "A/D"), times = 2)
 predictions %>% mutate(observation = 0, bslo = 0, bshi = 0)
@@ -66,8 +31,6 @@ for (i in 1:nrow(predictions)) {
     predictions$bshi[i] = mean(csub$bshi)
   }  
 }
-
-
 
 predictions_selected = filter(predictions, observation > -2)
 
@@ -114,4 +77,7 @@ width = 8
 # ggsave(filename = paste0(save.folder, "predObs_N400_Adjective.pdf"), plot = a2, height = height, width = width)
 # ggsave(filename = paste0(save.folder, "predObs_N400_Noun.pdf"), plot = n2, height = height, width = width)
 
+
+# total dirty hack
+predictions = predictions_SC
 
