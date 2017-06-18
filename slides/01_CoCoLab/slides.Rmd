@@ -1,0 +1,511 @@
+---
+title: "rational incremental predictive pragmatic processing"
+author: "Michael Franke"
+output:
+  ioslides_presentation:
+    css: mistyle.css
+    smaller: yes
+    transition: faster
+    widescreen: yes
+---
+```{r setup, include=FALSE, echo = FALSE, message = FALSE}
+knitr::opts_chunk$set(echo=TRUE, warning=FALSE, message=FALSE, dev.args = list(bg = 'transparent'))
+require('gtools')
+require('combinat')
+require('ggplot2')
+require('gridExtra')
+require('reshape2')
+require('coda')
+require('ggmcmc')
+require('rjags')
+require('runjags')
+require('dplyr')
+require('rstan')
+theme_set(theme_grey() + theme(plot.background=element_blank()) )
+normalize = function(x){ return(x / sum(x))}
+```
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({ TeX: { extensions: ["color.js"] }});
+</script>
+
+$$ \definecolor{firebrick}{RGB}{178,34,34} \newcommand{\red}[1]{{\color{firebrick}{#1}}} $$
+$$ \definecolor{green}{RGB}{107,142,35} \newcommand{\green}[1]{{\color{green}{#1}}} $$
+$$ \definecolor{blue}{RGB}{0,0,205} \newcommand{\blue}[1]{{\color{blue}{#1}}} $$
+$$ \newcommand{\den}[1]{[\![#1]\!]} $$
+$$ \newcommand{\set}[1]{\{#1\}} $$
+$$ \newcommand{\tuple}[1]{\langle#1\rangle} $$
+
+$$\newcommand{\States}{{T}}$$
+$$\newcommand{\state}{{t}}$$
+$$\newcommand{\Messgs}{{M}}$$
+$$\newcommand{\messg}{{m}}$$
+
+# processing?
+
+## incremental & predicitive processing
+
+<span style = "color:firebrick">processing</span>
+
+- comprehension of serially presented written or oral language input in context
+
+<span style = "color:white"> &nbsp; </span>
+
+<span style = "color:firebrick">incrementality</span>
+
+- build a syntactic & semantic representations as the sentence comes in
+
+    - what's the increment size? fixed or variable?
+    
+    - how to deal with ambiguity? singular guess or parallel hypotheses?
+
+<span style = "color:white"> &nbsp; </span>
+
+<span style = "color:firebrick">predicitive</span>
+
+- minimal sense: processing behavior is a function of current state
+
+- strong(est) sense: comprehender entertains hypotheses about the future
+
+<div style = "position:absolute; top: 620px; right:60px;">
+  (Kuperberg & Jaeger 2016)
+</div>
+
+## heuristics in syntactic processing
+
+- assign a partial parse $p$ to word sequence $w_1, \dots w_i$
+
+- as $w_{i+1}$ comes in update $p$ to $p'$ by parsing heuristics
+
+    - "The  |  florist  |  sent  | ..."
+
+
+<div align = 'center'>
+  <img src="pics/ReducedRelative.png" alt="reducedrelatives" style="width: 500px;"/>
+</div>
+
+## enlightened incrementality (1)
+
+- <span style = "color:firebrick">partial interpretation</span> function $[\![ \cdot ]\!] \colon T \mapsto S$, where:
+    - $T$ is a (partial) tree and 
+    - $S$ a (set of) $\lambda$-expressions (meanings)
+        - think: possible partial compositions of $T_i$ in a bag
+    
+- <span style = "color:firebrick">incremental processor</span> as function $\tuple{T_i, S_i} \mapsto \tuple{T_{i+1}, S_{i+1}}$, where
+    - transition $T_i$ to $T_{i+1}$ given by syntactic parser (modular!)
+    - $S_{i+1} \subseteq \den{T_{i+1}}$ based on heuristics, such as:
+        - <span style = "color:firebrick">subject-verb heuristic</span>: (compose immediately: "The soup greeted ...")
+        - <span style = "color:firebrick">temporal adverb + tense</span>: (compose immediatey: "Morgen gewann ...")
+
+
+<div style = "position:absolute; top: 620px; right:60px;">
+  (Beck & Tiemann 2017, <span style = "font-style: italic">Towards a model of incremental composition</span>, SuB) 
+</div>
+
+## enlightened incrementality (2)
+        
+- <span style = "color:firebrick">delayed composition</span> possible:
+    - "For two hours the boxer won$_*$ ... "
+        - processing difficulty on * in Russian (aspect marking)
+        - no processing difficulty on * in German (no aspect marking)
+    - <span style = "color:firebrick">wait-and-see heuristic</span>    
+    
+<span style = "color:white"> &nbsp; </span>
+    
+    
+- <span style = "color:firebrick">enlightened incrementality</span>: units in the same LF-domain (DP, VP, TP, AspP) are composed immediately
+
+<div style = "position:absolute; top: 620px; right:60px;">
+  (Beck & Tiemann 2017, <span style = "font-style: italic">Towards a model of incremental composition</span>, SuB) 
+</div>
+
+## worries
+
+
+<div style = "float:left; width:25%;">
+  
+<div align = 'center'>
+<img src="pics/pippilangstrumpf.jpg" alt="pippi" style="width: 250px;"/>
+</div>
+
+<span style = "color:white"> &nbsp; </span>
+<span style = "color:white"> &nbsp; </span>
+<span style = "color:white"> &nbsp; </span>
+<span style = "color:white"> &nbsp; </span>
+<span style = "color:white"> &nbsp; </span>
+<span style = "color:white"> &nbsp; </span>
+
+
+</div>
+<div style = "float:right; width:65%;">
+
+<span style = "color:white"> &nbsp; </span>
+<span style = "color:white"> &nbsp; </span>
+
+
+- too much unexplained:
+    - precise inventory of the "adaptive toolbox"?
+    - when to apply conflicting heuristics?
+    - why these heuristics & not others?
+
+- theory follows data
+    
+- inherent modularity, possibly seriality
+    - syntax >> semantics >> pragmatics
+
+- no place yet for contextual information
+    - likely speaker-intended discourse contribution
+    - adaptation to speaker idiocyncrasies
+    - what's relevant for the listener (think: QUD or task demands)
+    
+</div>  
+
+
+
+## expectation-based processing accounts
+
+- (maximally) predictive interpreter has <span style = "color:firebrick">lexico-syntactic expecations</span> $P(w_1, \dots, w_n \mid c)$
+    - operationalized by corpus frequencies of relevant structures
+    - possible beam-search approximation
+    - derived expectation about continuation $P(w_{i+1}, \dots, w_n \mid w_1, \dots, w_i, c)$
+
+<span style = "color:white"> &nbsp; </span>
+    
+- <span style = "color:firebrick">processing difficulty</span> linked to distance between $P(\cdot \mid  w_1, \dots, w_\red{i}, c)$ and  $P(\cdot \mid w_1, \dots, w_\red{i+1}, c)$
+    - self-paced reading times (Smith & Levy 2013)
+    - various ERP components, notably N400 amplitude (Frank et al. 2015)
+
+<div style = "position:absolute; top: 620px; right:60px;">
+  (e.g., Jurafsky 1996, Hale 2006, Levy 2008)
+</div>
+
+# RSA goes processing
+
+
+## rational speech act model
+
+<span style = "color:white"> &nbsp; </span>
+
+<span style = "color:firebrick">literal listener</span> picks literal interpretation (uniformly at random):
+
+$$ P_{LL}(t \mid m) \propto P(t \mid [\![m]\!]) $$
+
+<span style = "color:white"> &nbsp; </span>
+
+<span style = "color:firebrick">Gricean speaker</span> approximates informativity-maximization:
+
+$$ P_{S}(m \mid t) \propto \exp( \lambda P_{LL}(t \mid m)) $$
+
+<span style = "color:white"> &nbsp; </span>
+
+<span style = "color:firebrick">pragmatic listener</span> uses Bayes' rule to infer likely world states:
+
+$$ P_L(t \mid m ) \propto P(t) \cdot P_S(m \mid t) $$
+
+<span style = "color:white"> &nbsp; </span>
+
+interpretation as <span style = "color:firebrick">holistic</span>: full & complete utterance
+
+
+## incremental & predicitive interpretation
+
+- messages are word sequences: $\messg = w_1, \dots, w_n$
+
+- initial subsequence of $\messg$: $\messg_{\rightarrow i} = w_1, \dots w_i$
+
+- all messages sharing initial subsequence: $\Messgs(\messg_{\rightarrow i}) = \set{\messg' \in \Messgs \mid \messg'_{\rightarrow i} =
+  \messg_{\rightarrow i}}$
+
+- <span style = "color:firebrick">next-word expectation</span>:
+
+$$P_L(w_{i+1} \mid \messg_{\rightarrow i}) \propto \sum_{\state} P(\state) \ \sum_{\messg' \in
+    \Messgs(\messg_{\rightarrow i}, w_{i+1})} P_S(\messg' \mid \state)$$
+
+- <span style = "color:firebrick">interpretation evidence</span>:
+
+$$P_L(\state \mid \messg_{\rightarrow i}) \propto P(\state) \ \sum_{\messg' \in
+    \Messgs(\messg_{\rightarrow i})} P_S(\messg' \mid \state)$$
+
+## empirical measures
+
+<div style = "float:left; width:45%;">
+  
+  <span style = "color:firebrick">next-word</span>
+  
+  - self-paced reading
+  
+  - eye-tracked reading
+  
+  - ERPs
+  
+  - ...?
+  
+</div>
+<div style = "float:right; width:45%;">
+  
+  <span style = "color:firebrick">interpretation</span>
+  
+  - visual worlds
+  
+  - mouse-tracking
+  
+  - ...?
+  
+  
+</div>  
+
+# ERP traces of scalar implicature
+
+## some EEG studies on <span style = "font-style: italic">some</span>
+
+
+<span style = "color:firebrick">Noveck & Posada (2013)</span> 
+
+- ERPs on last word during reading: e.g. "Some people have fins/lungs/pets."
+- N400 amplitude: "pets" > "lungs"
+
+<span style = "color:white"> &nbsp; </span>
+
+<span style = "color:firebrick">Nieuwland et al. (2010)</span>
+
+- similar to Noveck & Posada
+- two types of responders based on Autism Spectrum Quotient
+    - low ASQ: "lungs" > "pets" ; high ASQ: "lungs" $\approx$ "pets"
+    
+<span style = "color:white"> &nbsp; </span>
+
+<span style = "color:firebrick">Hunt et al. (2013)</span>
+
+- sentences with pictorial contexts: controls for lexical associations
+- truth-value judgement after each sentence
+- pragmatic resonders' N400: false > underinformative > true & felicitous
+    
+## experiment 1
+
+<span style = "color:firebrick">participants & procedure</span>
+
+- EEG recording of 25 native German speakers
+- picture (1500ms) -> sentence (500ms per word) -> truth-value judgement
+
+<span style = "color:firebrick"> sentence material </span>
+
+- "Alle/Einige$_1$ Punkte sind blau$_2$, die im Kreis/Quadrat$_3$ sind"
+- "All/some of the dots in the circle/square are blue/red"
+
+<span style = "color:firebrick">visual stimuli</span>
+
+<div align = 'center'>
+  <img src="pics/Augurzky_stimuli.png" alt="stimuli" style="width: 650px;"/>
+</div>
+
+<div style = "position:absolute; top: 620px; right:60px;">
+  work by Petra Augurzky
+</div>
+
+## SI computation: algorithmic-level hypotheses
+
+<span style = "color:firebrick">role of context?</span>
+
+SI computed per default vs. when contextually supported
+
+<span style = "color:firebrick">when is SI computed online?</span>
+
+on the word, as soon as NP (possibly) complete, as soon as S (possibly) complete ...
+    
+<span style = "color:firebrick">when is SI content checked against context?</span>    
+
+as soon as possible vs. end of sentence
+
+<span style = "color:firebrick">what incurs processing costs?</span>
+
+SI computation, SI cancellation, SI violation, ...
+
+
+## hypotheses about SI mechanics (1)
+
+<div align = 'center'>
+
+  <img src="pics/Augurzky_stimuli.png" alt="stimuli" style="width: 650px;"/>
+  
+  <span style = "color:firebrick">Alle/Einige$_1$</span> <span style = "color:white"> Punkte sind blau$_2$, die im Kreis/Quadrat$_3$ sind </span>
+  
+</div>
+
+<span style = "color:white"> &nbsp; </span>
+
+- traces of processing effort for "some":
+    - SI calculation costly, 
+    - SI computed per default, and 
+    - SI calculated immediately on trigger
+- traces of SI cancellation in contexts $B$ and $C$ for "some" if:
+    - SI calculated (see above)
+    - SI checked immediately against context
+
+
+## hypotheses about SI mechanics (2)
+
+<div align = 'center'>
+
+  <img src="pics/Augurzky_stimuli.png" alt="stimuli" style="width: 650px;"/>
+  
+  Alle/Einige$_1$ Punkte sind <span style = "color:firebrick">blau$_2$</span> <span style = "color:white">, die im Kreis/Quadrat$_3$ sind </span>
+  
+</div>
+
+<span style = "color:white"> &nbsp; </span>
+
+- truth violation in context $C$ & in contexts $A$ and $D$ after "all" (if meaning is composed immediately)
+- traces of SI calculation in all contexts if:
+    - SI computed per default, and
+    - SI calculated immediately on first predicate completion
+- traces of SI violation in context $B$ (if SI checked against context immediately)
+
+## hypotheses about SI mechanics (3)
+
+<div align = 'center'>
+
+  <img src="pics/Augurzky_stimuli.png" alt="stimuli" style="width: 650px;"/>
+  
+  Alle/Einige$_1$ Punkte sind blau$_2$, die im <span style = "color:firebrick">Kreis/Quadrat$_3$</span> <span style = "color:white"> sind </span>
+  
+</div>
+
+<span style = "color:white"> &nbsp; </span>
+
+- after "some" in context $A$: traces of SI cancellation on "square" (if computed before)
+- after "some" in context $D$: 
+
+## RSA's expectation-based processing predictions
+
+<span style = "color:firebrick">general assumptions</span>
+
+- listener expects speaker to make a pragmatically felicitous utterance
+- listener does not give up on speaker rationality on the way (charity, forward induction, ...)
+
+<span style = "color:firebrick">specific assumptions</span>
+
+- possible meanings $\States$: pairs of contexts ($A$ - $D$) and speaker-intended shape
+- possible messages $\Messgs$: "All/some dots are blue/red that are in the square/circle."
+- listener knows context, but not shape
+- speaker chooses description for context and shape
+
+## next-word expectations vs. N400
+
+- incremental RSA predicts $P_L(w_{i+1} \mid w_{1,\dots,i}, c)$
+- correlating predicted next-word expectations grand-average early N400 (300-400ms):
+    - $r= 0.44$, $p < 0.01$ in total
+    - $r = 0.81$, $p < 0.001$ after exclusion of unexpected continuations
+
+
+<div align = 'center'>
+  <img src="pics/combined_plots.png" alt="" style="width: 900px;"/>
+</div>
+
+## closer look: quantifier position
+
+<div style = "float:left; width:35%;">
+  
+<img src="pics/Augurzky_stimuli_stacked.png" alt="stimuli" style="width: 350px;"/>
+
+</div>
+<div style = "float:right; width:55%;">
+
+<img src="pics/predObs_N400_Quantifier.pdf.jpg" alt="stimuli" style="width: 550px;"/>
+
+</div>  
+
+## closer look: adjective position
+
+<div style = "float:left; width:35%;">
+  
+<img src="pics/Augurzky_stimuli_stacked.png" alt="stimuli" style="width: 350px;"/>
+
+</div>
+<div style = "float:right; width:55%;">
+
+<img src="pics/predObs_N400_Adjective.pdf.jpg" alt="stimuli" style="width: 550px;"/>
+
+</div>  
+
+## closer look: shape noun position
+
+<div style = "float:left; width:35%;">
+  
+<img src="pics/Augurzky_stimuli_stacked.png" alt="stimuli" style="width: 350px;"/>
+
+</div>
+<div style = "float:right; width:55%;">
+
+<img src="pics/predObs_N400_Noun.pdf.jpg" alt="stimuli" style="width: 550px;"/>
+
+</div>  
+
+# further issues
+
+## experimental microcosmos
+
+<span style = "color:firebrick">main issue</span>
+
+how to fix reasonable $\States$ and $\Messgs$?
+
+
+<span style = "color:white"> &nbsp; </span>
+
+
+<span style = "color:firebrick">experimental microcosmos assumption</span>
+
+all (and only?) meanings and forms that occur in the experiment
+
+<span style = "color:white"> &nbsp; </span>
+
+<span style = "color:firebrick">prediction</span>
+
+massive influence of filler material
+
+## experiment 2
+
+<span style = "color:firebrick">participants & procedure</span>
+
+- EEG recording of 24 native German speakers
+- picture (1500ms) -> sentence (500ms per word) -> truth-value judgement
+
+<span style = "color:firebrick"> sentence material </span>
+
+- "Einige$_1$ Punkte sind blau$_2$, die im Kreis/Quadrat$_3$ sind"
+- "Einige$_1$ Punkte sind blau$_2$"
+
+<span style = "color:firebrick">visual stimuli</span>
+
+<div align = 'center'>
+  <img src="pics/Augurzky_stimuli.png" alt="stimuli" style="width: 650px;"/>
+</div>
+
+<div style = "position:absolute; top: 620px; right:60px;">
+  work by Petra Augurzky
+</div>
+
+## results
+
+<span style = "color:firebrick">behavioral data</span>
+
+only one participant consistently gave pragmatic judgements
+
+<span style = "color:firebrick">ERP responses</span>
+
+no trace of pragmatic infelicity / expectations
+
+# conclusions
+
+## conclusions
+
+- incremental RSA seems feasible:
+    - next-word expecations & accummulated interpretation evidence
+    - genuine pragmatic expectations beyond / on top of lexico-pragmatic expectations
+
+<span style = "color:white"> &nbsp; </span>
+    
+- main challenges:
+    - link functions for interesting experimental measures
+    - how to fix $\States$ and $\Messgs$ in general?
+    - how to scale up to more open-ended applications? tradeoff lexico-syntactiv vs. pragmatic expectations?
