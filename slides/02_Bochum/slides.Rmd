@@ -108,109 +108,154 @@ reflection
   (Kuperberg & Jaeger 2016)
 </div>
 
-## heuristics in syntactic processing
-
-- assign a partial parse $p$ to word sequence $w_1, \dots w_i$
-
-- as $w_{i+1}$ comes in update $p$ to $p'$ by parsing heuristics
-
-    - "The  |  florist  |  sent  | ..."
-
-
-<div align = 'center'>
-  <img src="../../pics/ReducedRelative.png" alt="reducedrelatives" style="width: 500px;"/>
-</div>
-
-## enlightened incrementality (1)
-
-- <span style = "color:firebrick">partial interpretation</span> function $[\![ \cdot ]\!] \colon T \mapsto S$, where:
-    - $T$ is a (partial) tree and 
-    - $S$ a (set of) $\lambda$-expressions (meanings)
-        - think: possible partial compositions of $T_i$ in a bag
-    
-- <span style = "color:firebrick">incremental processor</span> as function $\tuple{T_i, S_i} \mapsto \tuple{T_{i+1}, S_{i+1}}$, where
-    - transition $T_i$ to $T_{i+1}$ given by syntactic parser (modular!)
-    - $S_{i+1} \subseteq \den{T_{i+1}}$ based on heuristics, such as:
-        - <span style = "color:firebrick">subject-verb heuristic</span>: (compose immediately: "The soup greeted ...")
-        - <span style = "color:firebrick">temporal adverb + tense</span>: (compose immediatey: "Morgen gewann ...")
-
-
-<div style = "position:absolute; top: 620px; right:60px;">
-  (Beck & Tiemann 2017, <span style = "font-style: italic">Towards a model of incremental composition</span>, SuB) 
-</div>
-
-## enlightened incrementality (2)
-        
-- <span style = "color:firebrick">delayed composition</span> possible:
-    - "For two hours the boxer won$_*$ ... "
-        - processing difficulty on * in Russian (aspect marking)
-        - no processing difficulty on * in German (no aspect marking)
-    - <span style = "color:firebrick">wait-and-see heuristic</span>    
-    
-<span style = "color:white"> &nbsp; </span>
-    
-    
-- <span style = "color:firebrick">enlightened incrementality</span>: units in the same LF-domain (DP, VP, TP, AspP) are composed immediately
-
-<div style = "position:absolute; top: 620px; right:60px;">
-  (Beck & Tiemann 2017, <span style = "font-style: italic">Towards a model of incremental composition</span>, SuB) 
-</div>
-
-## worries
-
-<div style = "float:left; width:25%;">
-  
-<div align = 'center'>
-<img src="../../pics/pippilangstrumpf.jpg" alt="pippi" style="width: 250px;"/>
-</div>
-
-<span style = "color:white"> &nbsp; </span>
-<span style = "color:white"> &nbsp; </span>
-<span style = "color:white"> &nbsp; </span>
-<span style = "color:white"> &nbsp; </span>
-<span style = "color:white"> &nbsp; </span>
-<span style = "color:white"> &nbsp; </span>
-
-
-</div>
-<div style = "float:right; width:65%;">
-
-<span style = "color:white"> &nbsp; </span>
-<span style = "color:white"> &nbsp; </span>
-
-
-- too much unexplained:
-    - precise inventory of the "adaptive toolbox"?
-    - when to apply conflicting heuristics?
-    - why these heuristics & not others?
-
-- theory follows data
-    
-- inherent modularity, possibly seriality
-    - syntax >> semantics >> pragmatics
-
-- no place yet for contextual information
-    - likely speaker-intended discourse contribution
-    - adaptation to speaker idiocyncrasies
-    - what's relevant for the listener (think: QUD or task demands)
-    
-</div>  
-
 # levels of analysis
 
 ## levels of analysis
 
+<span style = "color:white"> &nbsp; </span>
+
 <div style="text-align: center">
-<img src="//Users/micha/Library/texmf/tex/latex/pics/LevelsOfAnalysis_ProbPrag_annotated.png" alt="LoA" style="width: 650px;"/>  
+  
+  computational
+  
+  <span style = "color:white"> &nbsp; </span>
+  
+  algorithmic
+  
+  <span style = "color:white"> &nbsp; </span>
+  
+  implementational
+  
+</div>
+
+
+<div style = "position:absolute; top: 620px; right:60px;">
+  (Marr 1982)
+</div>
+
+## levels of analysis
+
+<div style="text-align: center">
+<img src="//Users/micha/Library/texmf/tex/latex/pics/LevelsOfAnalysis_ProbPrag_annotated.png" alt="LoA" style="width: 650px;"/>
 </div>
 
 <div style = "position:absolute; top: 620px; right:60px;">
   (Franke & Jäger 2016)
 </div>
 
+## algorithmic-level accounts
+
+<div align = 'center'>
+  <img src="pics/Steampunk_machine.jpg" alt="machine" style="width: 350px;"/>
+</div>
+
+## mechanics of scalar implicature processing
+
+<div style = "float:left; width:45%;">
+
+<span style = "color:firebrick">what?</span>
+
+1. compute SI
+2. verify SI 
+3. integrate/cancel SI
+
+<span style = "color:white"> &nbsp; </span>
+
+<span style = "color:firebrick">when?</span>
+
+1. scalar item
+2. full NP
+3. matrix clause
+
+</div>
+<div style = "float:right; width:45%;">
+
+<span style = "color:firebrick">how?</span>
+
+1. costly
+2. delayed
+3. cheap & immediate
+  
+<span style = "color:white"> &nbsp; </span>
+
+<span style = "color:firebrick">whence?</span>
+
+1. automatic
+2. voluntary
+3. context-dependent
+  
+</div>  
+
+## hypothesis testing
+
+<span style = "color:white"> &nbsp; </span>
+
+pick account 
+
+<span style = "color:white"> &nbsp; </span>
+
+derive some (excentric) prediction
+
+<span style = "color:white"> &nbsp; </span>
+
+design experiment
+
+<span style = "color:white"> &nbsp; </span>
+
+refute & repeat
+
+<div style = "position:absolute; top: 620px; right:60px;">
+  (Platt 1964)
+</div>
+
+
+## computational-level accounts
+
+<span style = "color:white"> &nbsp; </span>
+
+
+<div align = 'center'>
+  <img src="pics/evolution.jpg" alt="evolution" style="width: 300px;"/>
+</div>
+
+## notions of "explanation"
+
+<span style = "color:white"> &nbsp; </span>
+
+<span style = "color:white"> &nbsp; </span>
+
+<div style="text-align: center">
+<span style = "color:firebrick">description</span>  <-----------------------------------------------> <span style = "color:firebrick">reason</span>
+</div>
+
+<span style = "color:white"> &nbsp; </span>
+
+<span style = "color:white"> &nbsp; </span>
+
+<span style = "color:white"> &nbsp; </span>
+
+<div style = "float:left; width:55%;">
+  
+  <span style = "color:firebrick">diagnostics</span>
+  
+  how would it work on Tralfamadore?
+  
+  could you conceive of it without seeing any data?
+</div>
+<div style = "float:right; width:40%;">
+
+<div align = 'center'>
+  <img src="pics/tralfamadore.jpg" alt="trafalmadore" style="width: 300px;"/>
+</div>
+  
+</div>  
+
+
+
 
 ## expectation-based processing accounts
 
+- basic premisse: anticipation is an advantage
 - (maximally) predictive interpreter has <span style = "color:firebrick">lexico-syntactic expecations</span> $P(w_1, \dots, w_n \mid c)$
     - operationalized by corpus frequencies of relevant structures
     - possible beam-search approximation
@@ -368,26 +413,6 @@ $$P_L(\state \mid \messg_{\rightarrow i}) \propto P(\state) \ \sum_{\messg' \in
 </div>
 
 
-## SI computation: algorithmic-level hypotheses
-
-<span style = "color:firebrick">role of context?</span>
-
-SI computed per default vs. when contextually supported
-
-<span style = "color:firebrick">when is SI computed online?</span>
-
-on the word, as soon as NP (possibly) complete, as soon as S (possibly) complete ...
-    
-<span style = "color:firebrick">when is SI content checked against context?</span>    
-
-as soon as possible vs. end of sentence
-
-<span style = "color:firebrick">what incurs processing costs?</span>
-
-SI computation, SI cancellation, SI violation, ...
-
-
-
 ## computational-level rational processing
 
 <span style = "color:firebrick">general assumptions</span>
@@ -397,10 +422,15 @@ SI computation, SI cancellation, SI violation, ...
 
 <span style = "color:white"> &nbsp; </span>
 
-<span style = "color:firebrick">specific assumptions</span>
+<span style = "color:firebrick">experimental microcosmos assumption</span>
 
 - possible meanings $\States$: pairs of contexts ($A$ - $D$) and speaker-intended shape
 - possible messages $\Messgs$: "All/some dots are blue/red that are in the square/circle."
+
+<span style = "color:white"> &nbsp; </span>
+
+<span style = "color:firebrick">specific assumptions</span>
+
 - listener knows context, but not shape
 - speaker chooses description for context and shape
 
@@ -571,4 +601,4 @@ no trace of pragmatic infelicity / expectations
 - main challenges:
     - link functions for interesting experimental measures
     - how to fix $\States$ and $\Messgs$ in general?
-    - how to scale up to more open-ended applications? tradeoff lexico-syntactiv vs. pragmatic expectations?
+    - how to scale up to more open-ended applications? tradeoff lexico-syntactic vs. pragmatic expectations?
