@@ -42,6 +42,42 @@ $$\newcommand{\state}{{t}}$$
 $$\newcommand{\Messgs}{{M}}$$
 $$\newcommand{\messg}{{m}}$$
 
+## roadmap
+
+<div style = "float:left; width:45%;">
+
+<span style = "color:white"> &nbsp; </span>
+
+language processing
+
+<span style = "color:white"> &nbsp; </span>
+
+levels of analysis
+
+<span style = "color:white"> &nbsp; </span>
+
+rational speech act model
+  
+</div>
+<div style = "float:right; width:45%;">
+
+<span style = "color:white"> &nbsp; </span>
+
+experimental data
+
+<span style = "color:white"> &nbsp; </span>
+
+model fits
+
+<span style = "color:white"> &nbsp; </span>
+
+reflection
+  
+</div>  
+
+
+
+
 # processing?
 
 ## incremental & predicitive processing
@@ -122,7 +158,6 @@ $$\newcommand{\messg}{{m}}$$
 
 ## worries
 
-
 <div style = "float:left; width:25%;">
   
 <div align = 'center'>
@@ -161,6 +196,17 @@ $$\newcommand{\messg}{{m}}$$
     
 </div>  
 
+# levels of analysis
+
+## levels of analysis
+
+<div style="text-align: center">
+<img src="//Users/micha/Library/texmf/tex/latex/pics/LevelsOfAnalysis_ProbPrag_annotated.png" alt="LoA" style="width: 650px;"/>  
+</div>
+
+<div style = "position:absolute; top: 620px; right:60px;">
+  (Franke & Jäger 2016)
+</div>
 
 
 ## expectation-based processing accounts
@@ -180,8 +226,7 @@ $$\newcommand{\messg}{{m}}$$
   (e.g., Jurafsky 1996, Hale 2006, Levy 2008)
 </div>
 
-# RSA goes processing
-
+# rational pragmatic processors
 
 ## rational speech act model
 
@@ -206,6 +251,10 @@ $$ P_L(t \mid m ) \propto P(t) \cdot P_S(m \mid t) $$
 <span style = "color:white"> &nbsp; </span>
 
 interpretation as <span style = "color:firebrick">holistic</span>: full & complete utterance
+
+<div style = "position:absolute; top: 620px; right:60px;">
+  (e.g., Benz 2006, Frank & Goodman 2012)
+</div>
 
 
 ## incremental & predicitive interpretation
@@ -259,8 +308,9 @@ $$P_L(\state \mid \messg_{\rightarrow i}) \propto P(\state) \ \sum_{\messg' \in
 
 ## some EEG studies on <span style = "font-style: italic">some</span>
 
+<div style = "float:left; width:45%;">
 
-<span style = "color:firebrick">Noveck & Posada (2013)</span> 
+<span style = "color:firebrick">Noveck & Posada (2003)</span> 
 
 - ERPs on last word during reading: e.g. "Some people have fins/lungs/pets."
 - N400 amplitude: "pets" > "lungs"
@@ -272,14 +322,32 @@ $$P_L(\state \mid \messg_{\rightarrow i}) \propto P(\state) \ \sum_{\messg' \in
 - similar to Noveck & Posada
 - two types of responders based on Autism Spectrum Quotient
     - low ASQ: "lungs" > "pets" ; high ASQ: "lungs" $\approx$ "pets"
-    
-<span style = "color:white"> &nbsp; </span>
+  
+</div>
+<div style = "float:right; width:45%;">
 
 <span style = "color:firebrick">Hunt et al. (2013)</span>
 
 - sentences with pictorial contexts: controls for lexical associations
 - truth-value judgement after each sentence
+- <span style = "color:firebrick">semantic vs. pragmatic responders</span>
 - pragmatic resonders' N400: false > underinformative > true & felicitous
+
+<span style = "color:white"> &nbsp; </span>
+
+<span style = "color:firebrick">Spychalska et al. (2016)</span>
+
+- similar to Hunt, but more careful design
+- no explanatory role for ASQ scores
+- strong explanatory role for responder type
+- explicit focus on <span style = "color:firebrick">next-work prediction</span>
+  
+</div>  
+
+
+
+    
+
     
 ## experiment 1
 
@@ -299,9 +367,6 @@ $$P_L(\state \mid \messg_{\rightarrow i}) \propto P(\state) \ \sum_{\messg' \in
   <img src="../../pics/Augurzky_stimuli.png" alt="stimuli" style="width: 650px;"/>
 </div>
 
-<div style = "position:absolute; top: 620px; right:60px;">
-  work by Petra Augurzky
-</div>
 
 ## SI computation: algorithmic-level hypotheses
 
@@ -322,66 +387,15 @@ as soon as possible vs. end of sentence
 SI computation, SI cancellation, SI violation, ...
 
 
-## hypotheses about SI mechanics (1)
 
-<div align = 'center'>
-
-  <img src="../../pics/Augurzky_stimuli.png" alt="stimuli" style="width: 650px;"/>
-  
-  <span style = "color:firebrick">Alle/Einige$_1$</span> <span style = "color:white"> Punkte sind blau$_2$, die im Kreis/Quadrat$_3$ sind </span>
-  
-</div>
-
-<span style = "color:white"> &nbsp; </span>
-
-- traces of processing effort for "some":
-    - SI calculation costly, 
-    - SI computed per default, and 
-    - SI calculated immediately on trigger
-- traces of SI cancellation in contexts $B$ and $C$ for "some" if:
-    - SI calculated (see above)
-    - SI checked immediately against context
-
-
-## hypotheses about SI mechanics (2)
-
-<div align = 'center'>
-
-  <img src="../../pics/Augurzky_stimuli.png" alt="stimuli" style="width: 650px;"/>
-  
-  Alle/Einige$_1$ Punkte sind <span style = "color:firebrick">blau$_2$</span> <span style = "color:white">, die im Kreis/Quadrat$_3$ sind </span>
-  
-</div>
-
-<span style = "color:white"> &nbsp; </span>
-
-- truth violation in context $C$ & in contexts $A$ and $D$ after "all" (if meaning is composed immediately)
-- traces of SI calculation in all contexts if:
-    - SI computed per default, and
-    - SI calculated immediately on first predicate completion
-- traces of SI violation in context $B$ (if SI checked against context immediately)
-
-## hypotheses about SI mechanics (3)
-
-<div align = 'center'>
-
-  <img src="../../pics/Augurzky_stimuli.png" alt="stimuli" style="width: 650px;"/>
-  
-  Alle/Einige$_1$ Punkte sind blau$_2$, die im <span style = "color:firebrick">Kreis/Quadrat$_3$</span> <span style = "color:white"> sind </span>
-  
-</div>
-
-<span style = "color:white"> &nbsp; </span>
-
-- after "some" in context $A$: traces of SI cancellation on "square" (if computed before)
-- after "some" in context $D$: 
-
-## RSA's expectation-based processing predictions
+## computational-level rational processing
 
 <span style = "color:firebrick">general assumptions</span>
 
 - listener expects speaker to make a pragmatically felicitous utterance
 - listener does not give up on speaker rationality on the way (charity, forward induction, ...)
+
+<span style = "color:white"> &nbsp; </span>
 
 <span style = "color:firebrick">specific assumptions</span>
 
@@ -447,15 +461,34 @@ SI computation, SI cancellation, SI violation, ...
 
 <div align = 'center'>
   <img src="pics/sem_prag_responses.png" alt="repsonsefreqs" style="width: 600px;"/>
+  
+  percentage of pragmatic responses per participant
 </div>
 
 ## predictions for response types
 
-- pragmatic responders expect pragmatic speakersas before
-- semantic responders expects <span style = "color:firebrick">literal speakers</span>
-    - low-probability of a false utterance
-    - any true utterance equally good
+<span style = "color:white"> &nbsp; </span>
+
+<span style = "color:firebrick">pragmatic responders</span>
+
+expect <span style = "color:firebrick">pragmatic speakers</span>
+
+$$P(\text{more informative true}) > P(\text{less informative true}) > P(\text{false})$$
+
+
+<span style = "color:white"> &nbsp; </span>
+
+<span style = "color:firebrick">semantic responders</span>
+
+expect <span style = "color:firebrick">literal speakers</span>
+
+$$P(\text{more informative true}) = P(\text{less informative true}) > P(\text{false})$$
+
     
+<div style = "position:absolute; top: 620px; right:60px;">
+  (Franke 2012, Franke & Degen 2016)
+</div>
+
 ## results 
 
 - correlation between predictions and observation (expluding redundant relative clauses):
@@ -513,9 +546,7 @@ massive influence of filler material
   <img src="../../pics/Augurzky_stimuli.png" alt="stimuli" style="width: 650px;"/>
 </div>
 
-<div style = "position:absolute; top: 620px; right:60px;">
-  work by Petra Augurzky
-</div>
+
 
 ## results
 
