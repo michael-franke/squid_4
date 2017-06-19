@@ -261,3 +261,43 @@ remove_redundant_rel_clauses = function(predictions) {
   predictions[which(p$expectation != 0.5),]
 }
 
+##############################
+## predictions for sem & prag
+##############################
+
+apply_IQR(game, depth = 1, lambda = 5)$sen
+predictions = rbind(get_predictions(senSemantics),  # semantics
+                    get_predictions(senSemantics)) %>% 
+  mutate(semPragType = rep(c("S", "P"), each = 32)) %>% 
+  mutate(observation = rep(observations, times = 2)) %>% 
+  mutate(context2 = as.character(context))
+predictions[nchar(as.character(predictions$segment)) == 1,]$context2 = rep(c("A/D", "B/C", "B/C", "A/D"), times = 4)
+predictions %>% mutate(observation = 0, bslo = 0, bshi = 0)
+# predictions = unique(predictions)
+
+
+for (i in 1:nrow(predictions)) {
+  cc = predictions$segment[i] # current condition
+  ccont = predictions$context2[i] # current context
+  ct = predictions$semPragType[i] # current semPrag type
+  if (nchar(as.character(cc)) == 1) {
+    csub = filter(qsdSP, context == ccont, quantifier == substr(cc,1,1), semPragType == ct)
+    predictions$observation[i] = mean(csub$obs)
+    predictions$bslo[i] = mean(csub$bslo)
+    predictions$bshi[i] = mean(csub$bshi)
+  }
+  if (nchar(as.character(cc)) == 2) {
+    csub = filter(asdSP, context == ccont, quantifier == substr(cc,1,1), semPragType == ct)
+    predictions$observation[i] = mean(csub$obs)
+    predictions$bslo[i] = mean(csub$bslo)
+    predictions$bshi[i] = mean(csub$bshi)
+  }
+  if (nchar(as.character(cc)) == 3) {
+    csub = filter(nsdSP, context == ccont, quantifier == substr(cc,1,1), semPragType == ct, shape2 == substr(cc,3,3))
+    predictions$observation[i] = mean(csub$obs)
+    predictions$bslo[i] = mean(csub$bslo)
+    predictions$bshi[i] = mean(csub$bshi)
+  }  
+}
+observations_sem = filter(predictions, semPragType == "S")$observation
+observations_prag = filter(predictions, semPragType == "P")$observation

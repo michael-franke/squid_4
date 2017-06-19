@@ -1,6 +1,6 @@
 ---
 title: "rational incremental predictive pragmatic processing"
-author: "Michael Franke"
+author: "Michael Franke & Petra Augurzky"
 output:
   ioslides_presentation:
     css: mistyle.css
@@ -440,6 +440,38 @@ SI computation, SI cancellation, SI violation, ...
 <img src="../../pics/predObs_N400_Noun.pdf.jpg" alt="stimuli" style="width: 550px;"/>
 
 </div>  
+
+# semantic vs. pragmatic responders
+
+## semantic vs. pragmatic responders
+
+<div align = 'center'>
+  <img src="pics/sem_prag_responses.png" alt="repsonsefreqs" style="width: 600px;"/>
+</div>
+
+## predictions for response types
+
+- pragmatic responders expect pragmatic speakersas before
+- semantic responders expects <span style = "color:firebrick">literal speakers</span>
+    - low-probability of a false utterance
+    - any true utterance equally good
+    
+## results 
+
+- correlation between predictions and observation (expluding redundant relative clauses):
+    - $r= 0.69$, $p < 0.01$ for pragmatic responders
+    - $r = 0.57$, $p < 0.01$ for semantic responders
+
+<div style = "float:left; width:35%;">
+  
+<img src="../../pics/Augurzky_stimuli_stacked.png" alt="stimuli" style="width: 350px;"/>
+
+</div>
+<div style = "float:right; width:55%;">
+
+<img src="pics/predObs_N400_grouped.jpg" alt="stimuli" style="width: 550px;"/>
+
+</div> 
 
 # further issues
 
