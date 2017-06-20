@@ -114,7 +114,18 @@ reflection
 
 <span style = "color:white"> &nbsp; </span>
 
+<span style = "color:white"> &nbsp; </span>
+
+
+<div style = "float:left; width:40%;">
+  <img src="pics/blind_men_and_elephant.jpg" alt="elephant" style="width: 400px;"/>
+</div>
+<div style = "float:right; width:50%;">
+
 <div style="text-align: center">
+
+  <span style = "color:white"> &nbsp; </span>
+
   
   computational
   
@@ -127,6 +138,8 @@ reflection
   implementational
   
 </div>
+  
+</div>  
 
 
 <div style = "position:absolute; top: 620px; right:60px;">
@@ -186,9 +199,11 @@ reflection
   
 </div>  
 
-## hypothesis testing
+## method of choice: hypothesis testing
 
 <span style = "color:white"> &nbsp; </span>
+
+<div style = "float:left; width:45%;">
 
 pick account 
 
@@ -203,6 +218,15 @@ design experiment
 <span style = "color:white"> &nbsp; </span>
 
 refute & repeat
+  
+</div>
+<div style = "float:right; width:45%;">
+
+<div align = 'center'>
+  <img src="pics/significance.png" alt="significance" style="width: 430px;"/>
+</div>
+  
+</div>  
 
 <div style = "position:absolute; top: 620px; right:60px;">
   (Platt 1964)
@@ -251,7 +275,24 @@ refute & repeat
 </div>  
 
 
+## method of choice: models & comparison
 
+
+
+<div style = "float:left; width:45%;">
+  
+<span style = "color:firebrick">data-generating models</span>  
+
+<img src="pics/typicality_modelGraph.png" alt="modelGraph" style="width: 450px;"/>
+  
+</div>
+<div style = "float:right; width:45%;">
+
+<span style = "color:firebrick">statistical model comparison</span>
+
+<img src="pics/justitia.png" alt="justitia" style="width: 300px;"/>
+  
+</div>  
 
 ## expectation-based processing accounts
 
@@ -521,7 +562,7 @@ $$P(\text{more informative true}) = P(\text{less informative true}) > P(\text{fa
 
 ## results 
 
-- correlation between predictions and observation (expluding redundant relative clauses):
+- correlation between predictions and observation (excluding redundant relative clauses):
     - $r= 0.69$, $p < 0.01$ for pragmatic responders
     - $r = 0.57$, $p < 0.01$ for semantic responders
 
@@ -602,3 +643,24 @@ no trace of pragmatic infelicity / expectations
     - link functions for interesting experimental measures
     - how to fix $\States$ and $\Messgs$ in general?
     - how to scale up to more open-ended applications? tradeoff lexico-syntactic vs. pragmatic expectations?
+
+# appendix
+
+## quantifier
+
+<div align = 'center'>
+  <img src="pics/ERPs_01_quantifier.png" alt="ERPs01" style="width: 850px;"/>
+</div>
+
+## adjective
+
+<div align = 'center'>
+  <img src="pics/ERPs_02_adjective.png" alt="ERPs02" style="width: 850px;"/>
+</div>
+
+## noun
+
+<div align = 'center'>
+  <img src="pics/ERPs_03_noun.png" alt="ERPs03" style="width: 850px;"/>
+</div>
+
