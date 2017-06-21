@@ -91,8 +91,6 @@ reflection
 <span style = "color:firebrick">incrementality</span>
 
 - build a syntactic & semantic representations as the sentence comes in
-
-    - what's the increment size? fixed or variable?
     
     - how to deal with ambiguity? singular guess or parallel hypotheses?
 
@@ -296,7 +294,7 @@ refute & repeat
 
 ## expectation-based processing accounts
 
-- basic premisse: anticipation is an advantage
+- basic premiss: anticipation is an advantage
 - (maximally) predictive interpreter has <span style = "color:firebrick">lexico-syntactic expecations</span> $P(w_1, \dots, w_n \mid c)$
     - operationalized by corpus frequencies of relevant structures
     - possible beam-search approximation
@@ -401,16 +399,22 @@ $$P_L(\state \mid \messg_{\rightarrow i}) \propto P(\state) \ \sum_{\messg' \in
 - ERPs on last word during reading: e.g. "Some people have fins/lungs/pets."
 - N400 amplitude: "pets" > "lungs"
 
-<span style = "color:white"> &nbsp; </span>
-
 <span style = "color:firebrick">Nieuwland et al. (2010)</span>
 
 - similar to Noveck & Posada
 - two types of responders based on Autism Spectrum Quotient
-    - low ASQ: "lungs" > "pets" ; high ASQ: "lungs" $\approx$ "pets"
+
+<span style = "color:firebrick">Politzer-Ahles et al., (2013)</span>
+
+- sentences following pictures
+- semantic vs. pragmatic violations
+- sust. negativity on underinformative quantifier
+- no N400 on aggregated ERPs at quantifier 
   
 </div>
 <div style = "float:right; width:45%;">
+
+
 
 <span style = "color:firebrick">Hunt et al. (2013)</span>
 
@@ -562,7 +566,7 @@ $$P(\text{more informative true}) = P(\text{less informative true}) > P(\text{fa
 
 ## results 
 
-- correlation between predictions and observation (excluding redundant relative clauses):
+- correlation between predictions and observations (excluding redundant relative clauses):
     - $r= 0.69$, $p < 0.01$ for pragmatic responders
     - $r = 0.57$, $p < 0.01$ for semantic responders
 
@@ -649,18 +653,18 @@ no trace of pragmatic infelicity / expectations
 ## quantifier
 
 <div align = 'center'>
-  <img src="pics/ERPs_01_quantifier.png" alt="ERPs01" style="width: 850px;"/>
+  <img src="pics/ERPs_01_quantifier.png" alt="ERPs01" style="width: 800px;"/>
 </div>
 
 ## adjective
 
 <div align = 'center'>
-  <img src="pics/ERPs_02_adjective.png" alt="ERPs02" style="width: 850px;"/>
+  <img src="pics/ERPs_02_adjective.png" alt="ERPs02" style="width: 800px;"/>
 </div>
 
 ## noun
 
 <div align = 'center'>
-  <img src="pics/ERPs_03_noun.png" alt="ERPs03" style="width: 850px;"/>
+  <img src="pics/ERPs_03_noun.png" alt="ERPs03" style="width: 800px;"/>
 </div>
 
