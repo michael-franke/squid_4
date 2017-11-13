@@ -1,0 +1,179 @@
+---
+title: "rational incremental predictive pragmatic processing"
+author: ""
+output: 
+  beamer_presentation:
+    keep_tex: true
+    includes:
+      in_header: myarticlestyledefaultLoc.sty
+
+---
+
+
+# processing
+
+## incremental & predicitive processing
+
+<span style = "color:firebrick">processing</span>
+
+- comprehension of serially presented written or oral language input in context
+
+
+<span style = "color:firebrick">incrementality</span>
+
+- build a syntactic & semantic representations as the sentence comes in
+    
+    - how to deal with ambiguity? singular guess or parallel hypotheses?
+
+<span style = "color:firebrick">predicitive</span>
+
+- minimal sense: processing behavior is a function of current state
+
+- strong(est) sense: comprehender entertains hypotheses about the future
+
+
+\bigskip
+
+\hfill  (Kuperberg & Jaeger 2016)
+
+
+## expectation-based syntactic processing accounts
+
+- basic premiss: anticipation is an advantage also for linguistic material
+- (maximally) predictive interpreter has <span style = "color:firebrick">lexico-syntactic expecations</span> $P(w_1, \dots, w_n \mid c)$
+    - operationalized by corpus frequencies of relevant structures
+    - possible beam-search approximation
+    - derived expectation about continuation $P(w_{i+1}, \dots, w_n \mid w_1, \dots, w_i, c)$
+
+- <span style = "color:firebrick">processing difficulty</span> linked to distance between $P(\cdot \mid  w_1, \dots, w_i, c)$ and  $P(\cdot \mid w_1, \dots, w_{i+1}, c)$
+    - self-paced reading times (Smith & Levy 2013)
+    - N400 amplitude (Frank et al. 2015)
+
+  \bigskip
+  
+  \hfill (e.g., Jurafsky 1996, Hale 2006, Levy 2008)
+
+
+# rational pragmatic processors
+
+## rational speech act model
+
+<span style = "color:firebrick">literal listener</span> picks literal interpretation (uniformly at random):
+
+$$ P_{LL}(t \mid m) \propto P(t \mid [\![m]\!]) $$
+
+<span style = "color:firebrick">Gricean speaker</span> approximates informativity-maximization:
+
+$$ P_{S}(m \mid t) \propto \exp( \lambda P_{LL}(t \mid m)) $$
+
+<span style = "color:firebrick">pragmatic listener</span> uses Bayes' rule to infer likely world states:
+
+$$ P_L(t \mid m ) \propto P(t) \cdot P_S(m \mid t) $$
+
+<span style = "color:white"> &nbsp; </span>
+
+\bigskip
+
+\hfill interpretation as \textcolor{blue}{holistic}: full & complete utterance
+
+
+
+## incremental & predicitive interpretation
+
+- messages are word sequences: $\messg = w_1, \dots, w_n$
+
+- initial subsequence of $\messg$: $\messg_{\rightarrow i} = w_1, \dots w_i$
+
+- all messages sharing initial subsequence: $\Messgs(\messg_{\rightarrow i}) = \set{\messg' \in \Messgs \mid \messg'_{\rightarrow i} =
+  \messg_{\rightarrow i}}$
+
+- <span style = "color:firebrick">next-word expectation</span>:
+
+$$P_L(w_{i+1} \mid \messg_{\rightarrow i}) \propto \sum_{\state} P(\state) \ \sum_{\messg' \in
+    \Messgs(\messg_{\rightarrow i}, w_{i+1})} P_S(\messg' \mid \state)$$
+
+- <span style = "color:firebrick">interpretation evidence</span>:
+
+$$P_L(\state \mid \messg_{\rightarrow i}) \propto P(\state) \ \sum_{\messg' \in
+    \Messgs(\messg_{\rightarrow i})} P_S(\messg' \mid \state)$$
+
+## empirical measures
+
+<div style = "float:left; width:45%;">
+  
+  <span style = "color:firebrick">next-word</span>
+  
+  - self-paced reading
+  
+  - eye-tracked reading
+  
+  - ERPs
+  
+  - ...?
+  
+</div>
+<div style = "float:right; width:45%;">
+  
+  <span style = "color:firebrick">interpretation</span>
+  
+  - visual worlds
+  
+  - mouse-tracking
+  
+  - ...?
+  
+  
+</div>  
+
+# pilot study on scalar implicature
+
+
+## design
+
+<span style = "color:firebrick">procedure</span>
+
+- picture (1500ms) -> sentence (500ms per word) -> truth-value judgement
+
+<span style = "color:firebrick"> sentence material </span>
+
+- "Alle/Einige$_1$ Punkte sind blau$_2$, die im Kreis/Quadrat$_3$ sind"
+- "All/some of the dots in the circle/square are blue/red"
+
+<span style = "color:firebrick">visual stimuli</span>
+
+
+\begin{center}
+\includegraphics[width = \textwidth]{pics/Augurzky_stimuli.png}
+\end{center}
+
+## computational-level rational processing
+
+\textcolor{blue}{general assumptions}
+
+- listener expects speaker to make a pragmatically felicitous utterance
+- listener does not give up on speaker rationality on the way (charity, forward induction, ...)
+
+
+\textcolor{blue}{experimental microcosmos assumption}
+
+- possible meanings $\States$: pairs of contexts ($A$ - $D$) and speaker-intended shape
+- possible messages $\Messgs$: "All/some dots are blue/red that are in the square/circle."
+
+\textcolor{blue}{specific assumptions}
+
+- listener knows context, but not shape
+- speaker chooses description for context and shape
+
+## next-word expectations vs. N400
+
+- incremental RSA predicts $P_L(w_{i+1} \mid w_{1,\dots,i}, c)$
+- correlating predicted next-word expectations grand-average early N400 (300-400ms):
+    - $r= 0.44$, $p < 0.01$ in total
+    - $r = 0.81$, $p < 0.001$ after exclusion of unexpected continuations
+
+\begin{center}
+\includegraphics[width = \textwidth]{pics/combined_plots.png}
+\end{center}
+
+
+
