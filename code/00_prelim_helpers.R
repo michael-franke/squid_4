@@ -248,6 +248,8 @@ nsdSP = ndSP %>% group_by(context, quantifier, shape2, semPragType) %>%
             bshi = quantile(bootstrap::bootstrap(x = mean, nboot = 1000, theta = function(x){mean(x)})$thetastar, 0.975))%>%
   mutate(frag = paste0(quantifier, "B")) 
 
+stop()
+
 ##############################
 ## helper functions
 ##############################

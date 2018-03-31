@@ -1,0 +1,88 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# Including packages
+
+```{r}
+library(tidyverse)  # handling data in a tidy way
+library(brms)       # for Bayesian hierarchical regression analyses
+```
+
+
+# Load and preprocess data
+
+We load the data, focus on early N400 window and note who is a semantic and who is a pragmatic responder.
+
+NB: we do not (but maybe should) restrict attention to only those ROIs that are associated with the N400 component.
+
+```{r}
+semantiker = c("s02", "s03", "s04", "s06", "s07", "s11", 
+               "s16", "s18", "s19", "s20", "s25", "s26")
+
+d = read.csv('../data/data.csv')
+d = d %>% filter(win %in% c("+0300..+0400")) # focus only on early N400 
+
+d = rename(d, context = cont2, quantifier = quan2, shape = form2) %>%
+  select(subj, cond, chan, win, mean, context, quantifier, shape, roi, position) %>%
+  mutate(roi = factor(roi)) %>%
+  mutate(position = factor(position, levels = c("quant", "adj", "form")),
+         context = toupper(context),
+         shape = toupper(shape),
+         cond = toupper(cond),
+         quantifier = toupper(quantifier)) %>%
+  mutate(shape2 = ifelse(shape == "X", "Q", "K"),
+         semPragType = ifelse(subj %in% semantiker, "S", "P")) %>% 
+  mutate(semPragType = factor(semPragType, ordered = T, levels = c("S", "P")))
+```
+
+# Sentence-initial quantifier
+
+
+## Descriptive summary
+
+We look at the quantifier position and inspect the means of all relevant factor combinations.
+
+```{r}
+quantData = filter(d, position == "quant", quantifier == "E") %>% 
+  mutate(contextType = ifelse(context %in% c("A", "D"), "complex", "simple")) %>% 
+  mutate(contextType = factor(contextType, ordered = T, levels = c("simple", "complex")))
+
+quantDataSummary = quantData %>% group_by(semPragType, contextType) %>% summarize(grand_mean = mean(mean))
+quantDataSummary
+
+```
+
+Descriptively, semantic responders tend to be more surprised by "some" in either context type than pragmatic responders. Semantic and pragmatic responders alike are more surprised by "some" in the complex condition.
+
+```{r}
+ggplot(quantData, aes( x = contextType, y = mean)) + geom_violin() + geom_point(data = quantDataSummary, aes(x = contextType, y = grand_mean)) + facet_wrap(~ semPragType)
+
+```
+
+
+## Regression analysis
+
+We then fit a model with main factors contextType (simple or complex; simple as intercept) and `semPragType` with (semantic responders as intercept).
+
+```{r}
+quantModel = brm(mean ~ contextType * semPragType + (1 | subj), data = quantData)
+```
+
+
+Inspect the summary of this model:
+
+```{r}
+summary(quantModel)
+```
+
+This suggests that both semantic and pragmatic responders are surprised by sentence initial "some" in complex conditions, more so than in simple conditions.
+
+# Classical non-hierarchical analysis
+
+```{r}
+quantModelClassic = glm(mean ~ contextType * semPragType, data = quantData)
+summary(quantModelClassic)
+```
+
